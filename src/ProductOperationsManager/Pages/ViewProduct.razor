@@ -1,0 +1,51 @@
+﻿@page "/dashboard/products/view/{Id}"
+@inject ProductService ProductService
+@inject NavigationManager Navigation
+
+<h1>Product Details</h1>
+
+@if (product == null)
+{
+    <p>Loading product...</p>
+}
+else
+{
+    <div class="detail-card">
+        <h2>@product.Name</h2>
+
+        <p><strong>Listing Title:</strong> @product.ListingTitle</p>
+        <p><strong>Description:</strong> @product.Description</p>
+        <p><strong>Category:</strong> @product.Category</p>
+        <p><strong>Price:</strong> @product.Price.ToString("C")</p>
+        <p><strong>Inventory:</strong> @product.InventoryQuantity</p>
+        <p><strong>Image URL:</strong> @product.ImageUrl</p>
+        <p><strong>Active:</strong> @product.Active</p>
+        <p><strong>Created:</strong> @product.Created</p>
+        <p><strong>Last Modified:</strong> @product.LastModified</p>
+
+        <button class="secondary-button" @onclick="EditProduct">Edit</button>
+        <button class="secondary-button" @onclick="BackToDashboard">Back</button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = "";
+
+    private ProductItem? product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(Id);
+    }
+
+    private void EditProduct()
+    {
+        Navigation.NavigateTo($"/dashboard/products/edit/{Id}");
+    }
+
+    private void BackToDashboard()
+    {
+        Navigation.NavigateTo("/dashboard/products");
+    }
+}

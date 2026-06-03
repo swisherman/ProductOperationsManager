@@ -1,0 +1,160 @@
+﻿.dashboard {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.dashboard-subtitle {
+    color: #666;
+    margin-top: -8px;
+}
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    max-width: 800px;
+}
+.toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 16px;
+    padding: 16px 24px;
+    background: #222;
+}
+
+    .main-nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .main-nav a:hover {
+            text-decoration: underline;
+        }
+
+
+
+
+.search-input {
+    width: 340px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.primary-button,
+.secondary-button,
+.danger-button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.primary-button {
+    background: #222;
+    color: white;
+}
+
+.secondary-button {
+    background: #e9ecef;
+    color: #222;
+}
+
+.danger-button {
+    background: #b42318;
+    color: white;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+    .stat-card span {
+        display: block;
+        color: #666;
+        margin-bottom: 8px;
+    }
+
+    .stat-card strong {
+        font-size: 2rem;
+    }
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .product-table th,
+    .product-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+    }
+
+    .product-table th {
+        background: #f0f2f5;
+    }
+
+.delete-confirm {
+    margin-top: 24px;
+    padding: 18px;
+    background: white;
+    border-left: 5px solid #b42318;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.product-form {
+    background: white;
+    max-width: 800px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.form-row {
+    margin-bottom: 16px;
+}
+
+    .form-row label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+.product-form input,
+.product-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}

@@ -1,0 +1,77 @@
+﻿@page "/dashboard/products/new"
+@using Microsoft.AspNetCore.Components.Forms
+@inject ProductService ProductService
+@inject NavigationManager Navigation
+
+<h1>Create Product</h1>
+
+<EditForm class="product-form" Model="product" OnValidSubmit="SaveProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-row">
+        <label>Name</label><br />
+        <InputText @bind-value="product.Name"></InputText>
+    </div>
+
+    <div class="form-row">
+        <label>Listing Title</label><br />
+        <InputText @bind-value="product.ListingTitle"></InputText>
+    </div>
+
+    <div class="form-row">
+        <label>Description</label><br />
+        <InputTextArea @bind-value="product.Description"></InputTextArea>
+    </div>
+
+    <div class="form-row">
+        <label>Category</label><br />
+        <InputText @bind-value="product.Category"></InputText> 
+    </div>
+
+    <div class="form-row">
+        <label>Price</label><br />
+        <InputNumber @bind-value="product.Price"></InputNumber> 
+    </div>
+
+    <div class="form-row">
+        <label>Inventory Quantity</label><br />
+        <InputNumber @bind-value="product.InventoryQuantity"></InputNumber>
+    </div>
+
+    <div class="form-row">
+        <label>Image URL</label><br />
+        <InputText @bind-value="product.ImageUrl"></InputText>
+    </div>
+
+    <div class="form-row">
+        <label>
+            <InputCheckbox @bind-value="product.Active"></InputCheckbox>
+            Active
+        </label>
+    </div>
+
+    <button type="submit">Save Product</button>
+    <button type="button" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    private ProductItem product = new()
+    {
+        Active = true
+    };
+
+    private async Task SaveProduct()
+    {
+        var created = await ProductService.CreateProductAsync(product);
+
+        if (created != null)
+        {
+            Navigation.NavigateTo("/dashboard");
+        }
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo("/dashboard");
+    }
+}

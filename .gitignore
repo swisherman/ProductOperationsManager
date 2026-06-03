@@ -1,0 +1,24 @@
+# Build output
+bin/
+obj/
+
+# User/local IDE files
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local app configuration
+appsettings.json
+appsettings.Development.json
+.env
+*.local.json
+
+# Generated exports and temporary files
+products.csv
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db

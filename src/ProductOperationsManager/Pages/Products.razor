@@ -1,0 +1,173 @@
+﻿@page "/"
+@page "/dashboard"
+@inject ProductService ProductService
+
+<div class="dashboard">
+    <h1>Products Dashboard</h1>
+    <p class="dashboard-subtitle">
+        Manage product records, inventory, and listing data.
+    </p>
+    <button @onclick="GoToCreate">Add Product</button>
+
+    <div class="toolbar">
+        <input class="search-input" @bind="searchQuery" placeholder="Search products..." />
+        <button class="secondary-button" @onclick="Search">Search</button>
+        <button class="secondary-button" @onclick="ExportJson">Export JSON</button>
+        <button class="secondary-button" @onclick="ExportCsv">Export CSV</button>
+    </div>
+    <h2>Inventory Overview</h2>
+    @if (stats != null)
+    {
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Products</span>
+                <strong>@stats.TotalProducts</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Active Products</span>
+                <strong>@stats.ActiveProducts</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Total Inventory</span>
+                <strong>@stats.TotalInventory</strong>
+            </div>
+        </div>
+    }
+
+    @if (products == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <h2>Product Catalog</h2>
+        <table class="product-table">
+            
+            <thead>
+                
+                <tr>
+                    
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Inventory</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Category</td>
+                        <td>@product.Price.ToString("C")</td>
+                        <td>@product.InventoryQuantity</td>
+                        <td>
+                            <button class="secondary-button" @onclick="() => ViewProduct(product.Id)">View</button>
+                            <button class="secondary-button" @onclick="() => EditProduct(product.Id)">Edit</button>
+                            <button class="danger-button" @onclick="() => ConfirmDelete(product.Id, product.Name)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       
+    }
+    @if (productToDeleteId != null)
+    {
+        <div class="delete-confirm">
+            <p>
+                Delete <strong>@productToDeleteName</strong>?
+            </p>
+
+            <button @onclick="DeleteConfirmed">Yes, delete</button>
+            <button @onclick="CancelDelete">Cancel</button>
+        </div>
+    }
+</div>
+
+@code {
+    private string? productToDeleteId;
+    private string? productToDeleteName;
+    private List<ProductItem>? products;
+    private ProductStats? stats;
+    private string searchQuery = "";
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAsync();
+        stats = await ProductService.GetStatsAsync();
+    }
+    private void ViewProduct(string? id)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return;
+
+        Navigation.NavigateTo($"/dashboard/products/view/{id}");
+    }
+    private void ExportJson()
+    {
+        Navigation.NavigateTo("/products/export/json", forceLoad: true);
+    }
+
+    private void ExportCsv()
+    {
+        Navigation.NavigateTo("/products/export/csv", forceLoad: true);
+    }
+    private void ConfirmDelete(string? id, string name)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return;
+
+        productToDeleteId = id;
+        productToDeleteName = name;
+    }
+
+    private void CancelDelete()
+    {
+        productToDeleteId = null;
+        productToDeleteName = null;
+    }
+
+    private async Task DeleteConfirmed()
+    {
+        if (string.IsNullOrWhiteSpace(productToDeleteId))
+            return;
+
+        var success = await ProductService.DeleteProductAsync(productToDeleteId);
+
+        if (success)
+        {
+            productToDeleteId = null;
+            productToDeleteName = null;
+
+            products = await ProductService.GetProductsAsync();
+            stats = await ProductService.GetStatsAsync();
+        }
+    }
+
+
+
+    private void EditProduct(string? id)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return;
+
+        Navigation.NavigateTo($"/dashboard/products/edit/{id}");
+    }
+    private async Task Search()
+    {
+        products = await ProductService.SearchProductsAsync(searchQuery);
+    }
+
+
+    private void GoToCreate()
+    {
+        Navigation.NavigateTo("/dashboard/products/new");
+    }
+}
