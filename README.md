@@ -10,7 +10,7 @@ Product Operations Manager was built to streamline product catalog management, i
 
 ![Demo](./assets/demo.gif)
 
-- [Full walkthrough video](./assets/demo.mp4)
+- [Full walkthrough video](https://github.com/YourUserName/ProductOperationsManager/releases/download/v0.1.0/demo.mp4)
 
 ## Features
 
