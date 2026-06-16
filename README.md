@@ -10,7 +10,7 @@ Product Operations Manager was built to streamline product catalog management, i
 
 ![Demo](./assets/demo.gif)
 
-- [Full walkthrough video](https://github.com/swisherman/ProductOperationsManager/releases/tag/v0.1.0/demo.mp4)
+- Full walkthrough video available in the Releases section.
 
 
 ## Features
@@ -224,15 +224,16 @@ ProductOperationsManager/
 ├── assets/
 │   └── screenshots/
 └── src/
-    └── ProductOperationsManager/
-        ├── Controllers/
-        ├── Data/
-        ├── Options/
-        ├── Repositories/
-        ├── Shared/
-        ├── wwwroot/
-        ├── Program.cs
-        └── ProductOperationsManager.csproj
+    ├── ProductOperationsManager/
+    │   ├── Controllers/
+    │   ├── Data/
+    │   ├── Options/
+    │   ├── Repositories/
+    │   ├── Shared/
+    │   ├── wwwroot/
+    │   ├── Program.cs
+    │   └── ProductOperationsManager.csproj
+    └── ProductOperationsManager.Tests/
 ```
 
 ---
@@ -326,3 +327,8 @@ The project includes MSTest-based unit tests covering ProductService behavior.
 ```bash
 dotnet test
 ```
+
+
+### Continuous Integration
+
+GitHub Actions automatically restores, builds, and runs the test suite on every push and pull request.
