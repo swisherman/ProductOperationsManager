@@ -20,7 +20,7 @@ public sealed class ProductServiceTests
 
         var result = await service.GetProductsAsync();
 
-        Assert.AreEqual(1, result.Count);
+        Assert.HasCount(1, result);
         Assert.AreEqual("Test Product", result[0].Name);
     }
 
@@ -128,7 +128,7 @@ public sealed class ProductServiceTests
 
         var result = await service.SearchProductsAsync("coffee");
 
-        Assert.AreEqual(1, result.Count);
+        Assert.HasCount(1, result);
         Assert.AreEqual("Coffee Mug", result[0].Name);
     }
 
@@ -147,7 +147,7 @@ public sealed class ProductServiceTests
 
         var result = await service.SearchProductsAsync("");
 
-        Assert.AreEqual(2, result.Count);
+        Assert.HasCount(2, result);
     }
 
 
